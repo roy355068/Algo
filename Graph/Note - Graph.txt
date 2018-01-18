@@ -1,0 +1,5 @@
+Comparison between        Adjacency Matrix     Adjacency List
+1. Space complexity:         O(|V| ^ 2)          O(|E| + |V|)
+2. Access speed:            continuous mem     dynamically allocated
+3. Create new edges:           O(1)             O(|E|) in worst case
+4. Delete new edges:           O(1)             O(|E|) in worst case

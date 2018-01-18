@@ -1,0 +1,3 @@
+416, 494 => Noncontinuous => Knapsack question => 從一組數列裡挑出符合條件的物件，物件不一定會相鄰或連續
+
+64 => Continuous => 藉由上一個位置的state來改變目前位置的state

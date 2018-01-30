@@ -7,6 +7,8 @@ class Solution(object):
         for i in xrange(1, n + 1):
             j = 1
             while j * j <= i:
+                # for each i, it must be the sum of a perfect square (j * j)
+                # and some other number i - (j * j)
                 count[i] = min(count[i], count[i - (j * j)] + 1)
                 j += 1
         return count[-1]

@@ -7,22 +7,24 @@ class Solution(object):
         if not matrix:
             return []
 
-        self.dir = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+        self.directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
         res = []
         m, n = len(matrix), len(matrix[0])
         # use two different lists to label if each cell is reachable
         # to the two seas
         pVisited = [[False for _ in xrange(n)] for _ in xrange(m)]
         aVisited = [[False for _ in xrange(n)] for _ in xrange(m)]
-        minVal = float('-inf')
+        borderVal = float('-inf')
         # run dfs for left and right border
         for i in xrange(m):
-            self.dfs(matrix, i, 0, pVisited, minVal)
-            self.dfs(matrix, i, n - 1, aVisited, minVal)
+            self.dfs(matrix, i, 0, pVisited, borderVal)
+            self.dfs(matrix, i, n - 1, aVisited, borderVal)
+            
         # run dfs for up and down border
         for j in xrange(n):
-            self.dfs(matrix, 0, j, pVisited, minVal)
-            self.dfs(matrix, m - 1, j, aVisited, minVal)
+            self.dfs(matrix, 0, j, pVisited, borderVal)
+            self.dfs(matrix, m - 1, j, aVisited, borderVal)
+
         # if the cell can reach both the Pacific and Atlantic oceans
         # append the coordination into res
         for i in xrange(m):
@@ -38,5 +40,5 @@ class Solution(object):
         if i < 0 or j < 0 or i >= len(matrix) or j >= len(matrix[0]) or visited[i][j] or height > matrix[i][j]:
             return
         visited[i][j] = True
-        for d in self.dir:
+        for d in self.directions:
             self.dfs(matrix, i + d[0], j + d[1], visited, matrix[i][j])

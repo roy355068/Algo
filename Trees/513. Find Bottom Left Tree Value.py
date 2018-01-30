@@ -49,6 +49,7 @@ class Solution(object):
             if curr.left:
                 q.put(curr.left)
         return curr.val
+
     # 3. an optimized way to do 2. Constant space complexity
     # since we only need the deepest depth's first element of the list
     # we may use a two-items list to store the current depth and node.val.

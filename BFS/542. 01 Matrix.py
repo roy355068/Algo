@@ -51,6 +51,7 @@ class Solution(object):
         res = [[float('inf') for _ in xrange(n)] for _ in xrange(m)]
         directions = [[0,1], [0,-1],[1,0], [-1,0]]
 
+        # in the BFS, we use the cells that have locally minVal as starter
         # start BFS with all of the zero cells
         for i in xrange(m):
             for j in xrange(n):

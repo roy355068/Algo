@@ -1,35 +1,27 @@
-# Given n, how many structurally unique BST's (binary search trees) that store values 1...n?
-
 class Solution(object):
     def numTrees(self, n):
         """
         :type n: int
         :rtype: int
         """
+        dp = [0 for _ in xrange(n + 1)]
+        dp[0], dp[1] = 1, 1
 
-        # https://discuss.leetcode.com/topic/8398/dp-solution-in-6-lines-with-explanation-f-i-n-g-i-1-g-n-i
-        """
-			Use the concept in the post above, we can define two functions: g and f
-
-			g(n) : the number of unique BST for n
-			f(i, n) : the number of unique BST using i, where 1 <= i <= n, as root
-
-			g(n) would be the ultimate answer in this problem
-			g[0] = g[1] = 1 because the number of ways of generating unique BST is one
-			g(n) = f(1, n) + f(2, n) + ...... + f(n, n)
-
-			f(i, n) could be viewed as g(i - 1) * g(n - i)
-			use i as root will divide the array into [1 : i - 1] and [i + 1 : n]
-			so the f(i, n) is the cartesian product of g(i - 1) and g(n - j)
-			which means the number of the unique subtrees.
-
-			so substitute the f(i, n) into the g(n) equation:
-			g(n) = g(0) * g(n - 1) + g(1) * g(n - 2) + ....... + g(n - 1) * g(0)
-
-        """
-        g = [1 if x == 0 or x == 1 else 0 for x in xrange(n + 1)]
         for i in xrange(2, n + 1):
-        	for j in xrange(1, i + 1):
-        		g[i] += g[j - 1] * g[i - j]
-        return g[n]
+            # i : current max nodes upto n
+            for j in xrange(1, i + 1):
+                # j : the current root up to i
 
+                # G(N) is the actual function we need to derive
+                # F(i, N) is using i as root while the total # of nodes is N
+
+                # so we have
+                # G(N) = F(1, N) + F(2, N) + F(3, N).... + F(N, N)
+                # also F(3, 7) = G(2) * G(4) due to it'll have two subtree with 2 and 4 nodes
+                # so we'll have G(N) = G(0) * G(N - 1) + G(1) * G(N - 2) + ... + G(N - 1) * G(0)
+
+                # the left subtree will have j - 1 nodes (because node start from 1 to j - 1)
+                # the root is j itself
+                # the right subtree will have i - j nodes (nodes start from j + 1 to i)
+                dp[i] += dp[j - 1] * dp[i - j]
+        return dp[-1]

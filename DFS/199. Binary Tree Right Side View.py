@@ -30,12 +30,7 @@ class Solution(object):
                     q.append(curr.right)
         return res
 
-    # DFS
-    def rightSideView(self, root):
-        res = []
-        self.dfs(res, root, 0)
-        return res
-
+    
 
     # the logic in the dfs helper is that we always start our traversal
     # from the right subtree since it's possible to be the place that the
@@ -45,6 +40,13 @@ class Solution(object):
     # Since each layer could only have one node, the second if statement will capture
     # the rightmost node immediately if there's a node which makes the first
     # if fails
+
+    # DFS
+    def rightSideView(self, root):
+        res = []
+        self.dfs(res, root, 0)
+        return res
+
     def dfs(self, res, node, depth):
         if not node:
             return None
